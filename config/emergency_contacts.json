@@ -1,0 +1,44 @@
+{
+  "emergency_contacts": [
+    {
+      "name": "Mine Safety Manager",
+      "phone": "+1234567890",
+      "email": "safety@mine.com",
+      "role": "primary",
+      "department": "Safety"
+    },
+    {
+      "name": "Operations Manager",
+      "phone": "+1234567891",
+      "email": "operations@mine.com",
+      "role": "secondary",
+      "department": "Operations"
+    },
+    {
+      "name": "Site Engineer",
+      "phone": "+1234567892",
+      "email": "engineer@mine.com",
+      "role": "technical",
+      "department": "Engineering"
+    },
+    {
+      "name": "Emergency Response Team",
+      "phone": "+1234567893",
+      "email": "emergency@mine.com",
+      "role": "emergency",
+      "department": "Emergency Response"
+    }
+  ],
+  "escalation_rules": {
+    "LOW": ["primary"],
+    "MEDIUM": ["primary", "secondary"],
+    "HIGH": ["primary", "secondary", "technical"],
+    "CRITICAL": ["primary", "secondary", "technical", "emergency"]
+  },
+  "notification_settings": {
+    "sms_enabled": true,
+    "email_enabled": true,
+    "retry_attempts": 3,
+    "retry_interval_minutes": 5
+  }
+}

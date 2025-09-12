@@ -1,0 +1,95 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: rockfall_db
+      POSTGRES_USER: rockfall_user
+      POSTGRES_PASSWORD: rockfall_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - rockfall_network
+
+  # Redis for Celery
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - rockfall_network
+
+  # Backend API
+  backend:
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile.backend
+    environment:
+      - DATABASE_URL=postgresql://rockfall_user:rockfall_password@postgres:5432/rockfall_db
+      - REDIS_URL=redis://redis:6379/0
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ../ml_models:/app/ml_models
+      - ../config:/app/config
+    networks:
+      - rockfall_network
+
+  # Celery Worker for background tasks
+  celery_worker:
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile.backend
+    command: celery -A backend.celery_app worker --loglevel=info
+    environment:
+      - DATABASE_URL=postgresql://rockfall_user:rockfall_password@postgres:5432/rockfall_db
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ../ml_models:/app/ml_models
+      - ../config:/app/config
+    networks:
+      - rockfall_network
+
+  # Frontend
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: ../deployment/Dockerfile.frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - rockfall_network
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./ssl:/etc/nginx/ssl
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - rockfall_network
+
+volumes:
+  postgres_data:
+
+networks:
+  rockfall_network:
+    driver: bridge

@@ -1,0 +1,298 @@
+.App {
+  text-align: left;
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}
+
+/* Custom styling for risk levels */
+.risk-low {
+  color: #28a745;
+}
+
+.risk-medium {
+  color: #ffc107;
+}
+
+.risk-high {
+  color: #fd7e14;
+}
+
+.risk-critical {
+  color: #dc3545;
+}
+
+/* Dashboard cards */
+.dashboard-card {
+  transition: all 0.3s ease;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.dashboard-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Enhanced card styling */
+.card {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.card-header {
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  font-weight: 600;
+}
+
+/* Risk level styling */
+.risk-gauge {
+  position: relative;
+}
+
+.risk-indicator {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Weather icons */
+.weather-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Forecast cards */
+.forecast-card {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.forecast-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Alert styling */
+.alert {
+  border-left: 4px solid;
+  border-radius: 4px;
+}
+
+.alert-danger {
+  border-left-color: #dc3545;
+  background-color: rgba(220, 53, 69, 0.1);
+}
+
+.alert-warning {
+  border-left-color: #ffc107;
+  background-color: rgba(255, 193, 7, 0.1);
+}
+
+/* Progress bars */
+.progress {
+  height: 8px;
+  border-radius: 4px;
+  background-color: rgba(0,0,0,0.1);
+}
+
+.progress-bar {
+  border-radius: 4px;
+}
+
+/* Badges */
+.badge {
+  font-weight: 500;
+  padding: 0.5em 0.75em;
+}
+
+/* Table enhancements */
+.table-sm td {
+  padding: 0.5rem 0.25rem;
+  vertical-align: middle;
+}
+
+/* Chart containers */
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .dashboard-card {
+    margin-bottom: 1rem;
+  }
+  
+  .forecast-card {
+    margin-bottom: 0.5rem;
+  }
+  
+  .weather-conditions {
+    text-align: center;
+  }
+  
+  .weather-conditions .col-md-2 {
+    margin-bottom: 1rem;
+  }
+}
+
+/* Alert animations */
+.alert-item {
+  animation: slideIn 0.3s ease-in;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Status indicators */
+.status-indicator {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.status-online {
+  background-color: #28a745;
+  animation: pulse 2s infinite;
+}
+
+.status-offline {
+  background-color: #dc3545;
+}
+
+.status-warning {
+  background-color: #ffc107;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(40, 167, 69, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+  }
+}
+
+/* Chart containers */
+.chart-container {
+  position: relative;
+  height: 400px;
+  width: 100%;
+}
+
+/* Loading spinner */
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .display-4 {
+    font-size: 2rem;
+  }
+  
+  .display-5 {
+    font-size: 1.5rem;
+  }
+  
+  .lead {
+    font-size: 1rem;
+  }
+}
+
+/* Custom button styles */
+.btn-emergency {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: white;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0.5;
+  }
+}
+
+/* Map popup styles */
+.leaflet-popup-content {
+  margin: 8px 12px;
+  line-height: 1.4;
+}
+
+.leaflet-popup-content h6 {
+  margin-bottom: 8px;
+  color: #333;
+}
+
+/* Table enhancements */
+.table-hover tbody tr:hover {
+  background-color: rgba(0, 123, 255, 0.1);
+}
+
+/* Badge enhancements */
+.badge {
+  font-size: 0.75em;
+}
+
+/* Card enhancements */
+.card {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.card-header {
+  background-color: rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+/* Progress bar enhancements */
+.progress {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Alert enhancements */
+.alert {
+  border: 1px solid transparent;
+  border-radius: 0.375rem;
+}
+
+/* Navigation enhancements */
+.navbar-brand {
+  font-weight: 600;
+}
+
+.nav-link {
+  font-weight: 500;
+}
+
+/* Footer */
+.footer {
+  background-color: #f8f9fa;
+  padding: 20px 0;
+  margin-top: 40px;
+  border-top: 1px solid #dee2e6;
+}
