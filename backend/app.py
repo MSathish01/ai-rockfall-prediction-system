@@ -252,6 +252,99 @@ def get_forecast():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/api/test-alert', methods=['POST'])
+def send_test_alert():
+    """Send a test alert to configured contacts"""
+    try:
+        # Load emergency contacts
+        import json
+        with open('config/emergency_contacts.json', 'r') as f:
+            config = json.load(f)
+            contacts = config['emergency_contacts']
+        
+        # Create test alert
+        test_alert = {
+            'alert_type': 'SYSTEM_TEST',
+            'severity': 'HIGH',
+            'message': f'Test alert from Rockfall Prediction System - {datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")}',
+            'location': 'Test Zone',
+            'probability': 0.75,
+            'timestamp': datetime.utcnow().isoformat(),
+            'recommendations': [
+                'This is a test alert to verify the notification system',
+                'No action required - system test only',
+                'Check dashboard for system status'
+            ]
+        }
+        
+        # Format messages
+        sms_message = f"""🚨 TEST ALERT 🚨
+System: Rockfall Prediction
+Severity: {test_alert['severity']}
+Time: {datetime.utcnow().strftime('%H:%M')}
+
+{test_alert['message']}
+
+This is a TEST - No action required."""
+        
+        email_subject = f"🧪 TEST ALERT - Rockfall Prediction System"
+        email_message = f"""TEST ALERT - ROCKFALL PREDICTION SYSTEM
+
+This is a test message to verify the alert system is working correctly.
+
+Alert Details:
+- Type: {test_alert['alert_type']}
+- Severity: {test_alert['severity']}
+- Time: {test_alert['timestamp']}
+- Message: {test_alert['message']}
+
+System Status: Operational
+Dashboard: http://localhost:3000
+
+This is an automated test from the AI-Based Rockfall Prediction System.
+No action is required - this is for testing purposes only."""
+        
+        # Send alerts (mock implementation)
+        sent_alerts = []
+        for contact in contacts:
+            contact_alerts = {
+                'name': contact['name'],
+                'role': contact['role'],
+                'alerts_sent': []
+            }
+            
+            if contact.get('phone'):
+                # Mock SMS sending
+                contact_alerts['alerts_sent'].append({
+                    'type': 'SMS',
+                    'destination': contact['phone'],
+                    'status': 'sent_mock',
+                    'message': sms_message[:100] + '...'
+                })
+            
+            if contact.get('email'):
+                # Mock email sending
+                contact_alerts['alerts_sent'].append({
+                    'type': 'EMAIL',
+                    'destination': contact['email'],
+                    'status': 'sent_mock',
+                    'subject': email_subject
+                })
+            
+            sent_alerts.append(contact_alerts)
+        
+        return jsonify({
+            'status': 'success',
+            'message': 'Test alerts sent successfully',
+            'alert_details': test_alert,
+            'contacts_notified': len(contacts),
+            'sent_alerts': sent_alerts,
+            'note': 'This is a mock implementation. Configure Twilio and SendGrid for real alerts.'
+        })
+        
+    except Exception as e:
+        return jsonify({'error': f'Failed to send test alert: {str(e)}'}), 500
+
 def should_trigger_prediction():
     """Determine if prediction should be triggered based on data availability"""
     recent_count = SensorData.query.filter(

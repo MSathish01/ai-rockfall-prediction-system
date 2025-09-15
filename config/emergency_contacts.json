@@ -1,25 +1,25 @@
 {
   "emergency_contacts": [
     {
+      "name": "Primary Contact",
+      "phone": "+916384574029",
+      "email": "icanhelpyou009@gmail.com",
+      "role": "primary",
+      "department": "Safety"
+    },
+    {
       "name": "Mine Safety Manager",
       "phone": "+1234567890",
       "email": "safety@mine.com",
-      "role": "primary",
+      "role": "secondary",
       "department": "Safety"
     },
     {
       "name": "Operations Manager",
       "phone": "+1234567891",
       "email": "operations@mine.com",
-      "role": "secondary",
-      "department": "Operations"
-    },
-    {
-      "name": "Site Engineer",
-      "phone": "+1234567892",
-      "email": "engineer@mine.com",
       "role": "technical",
-      "department": "Engineering"
+      "department": "Operations"
     },
     {
       "name": "Emergency Response Team",
@@ -30,10 +30,24 @@
     }
   ],
   "escalation_rules": {
-    "LOW": ["primary"],
-    "MEDIUM": ["primary", "secondary"],
-    "HIGH": ["primary", "secondary", "technical"],
-    "CRITICAL": ["primary", "secondary", "technical", "emergency"]
+    "LOW": [
+      "primary"
+    ],
+    "MEDIUM": [
+      "primary",
+      "secondary"
+    ],
+    "HIGH": [
+      "primary",
+      "secondary",
+      "technical"
+    ],
+    "CRITICAL": [
+      "primary",
+      "secondary",
+      "technical",
+      "emergency"
+    ]
   },
   "notification_settings": {
     "sms_enabled": true,
