@@ -9,6 +9,7 @@ import RiskMap from './components/RiskMap';
 import Alerts from './components/Alerts';
 import Forecast from './components/Forecast';
 import SensorData from './components/SensorData';
+import DataSources from './components/DataSources';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/alerts" element={<Alerts />} />
             <Route path="/forecast" element={<Forecast />} />
             <Route path="/sensors" element={<SensorData />} />
+            <Route path="/data-sources" element={<DataSources />} />
           </Routes>
         </div>
       </div>

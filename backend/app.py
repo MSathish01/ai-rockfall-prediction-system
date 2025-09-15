@@ -140,6 +140,14 @@ class SimpleRockfallPredictor:
 predictor = SimpleRockfallPredictor()
 print("✅ Services initialized successfully")
 
+# Import and register data sources blueprint
+try:
+    from data_sources_api import data_sources_bp
+    app.register_blueprint(data_sources_bp)
+    print("✅ Data sources API registered")
+except Exception as e:
+    print(f"⚠️ Warning: Data sources API registration failed: {e}")
+
 @app.route('/api/health', methods=['GET'])
 def health_check():
     return jsonify({'status': 'healthy', 'timestamp': datetime.utcnow().isoformat()})

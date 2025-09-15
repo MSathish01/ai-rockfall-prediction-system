@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar as BootstrapNavbar, Nav, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { FaHome, FaMap, FaBell, FaChartLine, FaCog } from 'react-icons/fa';
+import { FaHome, FaMap, FaBell, FaChartLine, FaCog, FaCloudUploadAlt } from 'react-icons/fa';
 
 const Navbar = () => {
   return (
@@ -38,6 +38,11 @@ const Navbar = () => {
             <Nav.Link as={Link} to="/sensors">
               <FaCog className="me-1" />
               Sensors
+            </Nav.Link>
+            
+            <Nav.Link as={Link} to="/data-sources">
+              <FaCloudUploadAlt className="me-1" />
+              Data Sources
             </Nav.Link>
           </Nav>
           
